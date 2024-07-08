@@ -1,21 +1,28 @@
+using System.Globalization;
 using BenchmarkApp.Domain.Models;
 using BenchmarkDotNet.Attributes;
 using CsvHelper;
+using CsvHelper.Configuration;
 
 namespace BenchmarkApp.Console;
 
 [MemoryDiagnoser]
 public class ProductsBenchmark
 {
-    private IEnumerable<Product>? products;
+    private List<Product>? products;
 
     [GlobalSetup]
     public void Setup()
     {
-        var filePath = string.Empty;
+        var configuration = new CsvConfiguration
+        {
+            CultureInfo = CultureInfo.InvariantCulture,
+        };
+
+        var filePath = "/Users/leonardoqueirozrocha/Dev/desenvolvedorio/benchmarkapp/src/BenchmarkApp.Console/Files/products.csv";
         using var reader = new StreamReader(filePath);
-        using var csv = new CsvReader(reader);
-        products = csv.GetRecords<Product>();
+        using var csv = new CsvReader(reader, configuration);
+        products = csv.GetRecords<Product>().ToList();
     }
 
     [Benchmark]
