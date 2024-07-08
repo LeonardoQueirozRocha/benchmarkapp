@@ -28,7 +28,7 @@ public class ProductsBenchmark
                 return product;
             })
             .OrderBy(product => product.Name)
-            .Where(product => product.Active!.Value)
+            .Where(product => product.Active)
             .ToList();
 
         return result;
@@ -38,7 +38,7 @@ public class ProductsBenchmark
     public List<Product> EfficientSorting()
     {
         return products!
-            .Where(product => product.Active!.Value)
+            .Where(product => product.Active)
             .OrderBy(product => product.Name!.ToUpper())
             .ToList();
     }
