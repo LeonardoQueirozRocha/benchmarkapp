@@ -1,6 +1,6 @@
 using BenchmarkDotNet.Attributes;
 
-namespace BenchmarkApp.Console.Models;
+namespace BenchmarkApp.Console;
 
 public class AppBenchmark
 {
